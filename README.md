@@ -1,19 +1,55 @@
 # dBranch IPFS Node
+The repository for the dbranch node. Long term plan is to run an ipfs node and other blockchains such as Cardano and/or Algorand in addition to the [dbranch backend](https://github.com/b-rad-c/dbranch-backend) and stuff it all into a docker compose file.
+
+
 ### ipfs setup
-* start with ubuntu 20
-* create `ipfs` user & add to sudoers
-* install [go-ipfs](ipns://docs.ipfs.io/install/command-line/#official-distributions)
+- start with ubuntu 20
+- create `ipfs` user & add to sudoers
+
+        adduser ipfs
+        usermod -a -G sudo ipfs
+
+- install [go-ipfs](ipns://docs.ipfs.io/install/command-line/#official-distributions)
     - init repo
     - setup config with server profile
         - set `Addresses.Gateway` to `/ip4/0.0.0.0/tcp/8080`
         - set `Gateway.NoFetch` to `true`
+        - add CORS support on `API.HTTPHeaders` and `Gateway.HTTPHeaders`
+
+                "Access-Control-Allow-Methods": [
+                        "PUT",
+                        "GET",
+                        "POST",
+                        "OPTIONS"
+                ],
+                "Access-Control-Allow-Origin": [
+                        "*"     // or other specific address
+                ]
+
 * enable firewall
-    - allow ssh traffic
-    - allow tcp traffic to port 8080
+
+        sudo ufw allow ssh
+        sudo ufw allow 8080/tcp
+        sudo ufw enable
+
+
 * enable systemd service (as ipfs user)
     
         sudo mv dbranch-ipfs.service /etc/systemd/system
         sudo systemctl enable dbranch-ipfs
+
+### dbranch backend
+
+        wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
+        sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
+        rm go1.18.linux-amd64.tar.gz
+        echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
+        echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.bashrc
+        git clone https://github.com/b-rad-c/dbranch-backend.git
+        cd dbranch-backend
+        go build main.go
+        sudo mv main /usr/local/bin/dbranch-backend
+        
 
 ### nginx setup
 
@@ -31,10 +67,6 @@
 ### certbot set up
 Enable auto renewing SSL cert with `certbox` for nginx on ubuntu 20 at [with instructions at this link.](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal)
 
-
-### to do
-* api cors headers
-* read reference article about ipfs specific headers
 
 ### references
 
