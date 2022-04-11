@@ -35,8 +35,8 @@ The repository for the dbranch node. Long term plan is to run an ipfs node and o
 
 * enable systemd service (as ipfs user)
     
-        sudo mv dbranch-ipfs.service /etc/systemd/system
-        sudo systemctl enable dbranch-ipfs
+        sudo mv ipfs.service /etc/systemd/system
+        sudo systemctl enable ipfs
 
 ### dbranch backend
 
@@ -49,6 +49,12 @@ The repository for the dbranch node. Long term plan is to run an ipfs node and o
         cd dbranch-backend
         go build main.go
         sudo mv main /usr/local/bin/dbranch-backend
+        sudo mv dbranch-backend.service /etc/systemd/system
+        sudo systemctl enable dbranch-backend
+
+to read logs
+
+        journalctl -u dbranch-backend
         
 
 ### nginx setup

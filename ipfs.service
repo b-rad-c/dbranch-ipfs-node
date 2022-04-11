@@ -1,5 +1,5 @@
 [Unit]
-Description=dBranch IPFS service
+Description=IPFS daemon
 After=network-online.target
 
 [Service]
