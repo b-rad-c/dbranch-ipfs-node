@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  curator-daemon:
+    build:
+      context: .
+      dockerfile: curator-daemon-dockerfile
+    environment:
+      DBRANCH_CURATOR_CONFIG: /dbranch/curator.json
