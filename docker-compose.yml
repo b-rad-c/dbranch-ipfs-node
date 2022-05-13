@@ -3,6 +3,6 @@ services:
   curator-daemon:
     build:
       context: .
-      dockerfile: curator-daemon-dockerfile
+      dockerfile: Dockerfile-curator
     environment:
       DBRANCH_CURATOR_CONFIG: /dbranch/curator.json
