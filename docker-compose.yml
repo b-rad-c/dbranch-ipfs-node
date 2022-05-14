@@ -4,5 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-curator
-    environment:
-      DBRANCH_CURATOR_CONFIG: /dbranch/curator.json
+  ipfs:
+    build:
+      context: .
+      dockerfile: Dockerfile-curator
