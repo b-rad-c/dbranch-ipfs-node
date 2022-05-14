@@ -1,7 +1,7 @@
 {
     "allow_empty_peer_list": true,
     "curated_dir": "/dBranch/curated",
-    "ipfs_host": "localhost:5001",
+    "ipfs_host": "ipfs:5001",
     "log_path": "-",
     "allowed_peers": [
     ],
