@@ -1,8 +1,11 @@
 {
-    "allow_empty_peer_list": true,
+    "allow_any_peer": false,
+    "index": "/dBranch/index.json",
     "curated_dir": "/dBranch/curated",
-    "ipfs_host": "ipfs:5001",
+    "published_dir": "/dBranch/published",
+    "ipfs_host": "ipfs-node:5001",
     "log_path": "-",
+    "cardano_wallet_host": "http://cardano-wallet:8090",
     "allowed_peers": [
     ],
     "wire_channel": "dbranch-wire"
