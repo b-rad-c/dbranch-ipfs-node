@@ -1,10 +1,12 @@
 version: "3.9"
 services:
 
-  ipfs-curator:
-    image: dbranch/ipfs-curator
+  curator:
+    image: dbranch/curator
     environment:
-      - DBRANCH_CURATOR_CONFIG=/dbranch/config.json
+      IPFS_HOST: ipfs-node:5001
+      POSTGRES_DB_HOST: postgres
+      CARDANO_WALLET_HOST: http://cardano-wallet:8090
     build:
       context: .
       dockerfile: curator/Dockerfile
@@ -13,6 +15,12 @@ services:
 
   ipfs-node:
     image: dbranch/ipfs-node
+    ports:
+      - "4001:4001"
+      - "4001:4001/udp"
+      - "8081:8081"
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:5001:5001"
     build:
       context: .
       dockerfile: ipfs/Dockerfile
