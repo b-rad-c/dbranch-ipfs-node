@@ -1,12 +1,44 @@
 version: "3.9"
 services:
 
-  curator:
+  curator-daemon:
     image: dbranch/curator
+    command: dbranch curator daemon
     environment:
       IPFS_HOST: ipfs-node:5001
       POSTGRES_DB_HOST: postgres
       CARDANO_WALLET_HOST: http://cardano-wallet:8090
+      POSTGRES_DB_FILE: /run/secrets/postgres_db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      CARDANO_ADDRESS_FILE: /dbranch/backend/samples/cardano_addresses.txt
+    secrets:
+    - postgres_password
+    - postgres_user
+    - postgres_db
+    build:
+      context: .
+      dockerfile: curator/Dockerfile
+    volumes:
+      - ./backend:/dbranch/backend
+  
+  curator-server:
+    image: dbranch/curator
+    command: dbranch curator server
+    environment:
+      IPFS_HOST: ipfs-node:5001
+      POSTGRES_DB_HOST: postgres
+      CARDANO_WALLET_HOST: http://cardano-wallet:8090
+      POSTGRES_DB_FILE: /run/secrets/postgres_db
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      CARDANO_ADDRESS_FILE: /dbranch/backend/samples/cardano_addresses.txt
+    ports:
+      - "1323:1323"
+    secrets:
+    - postgres_password
+    - postgres_user
+    - postgres_db
     build:
       context: .
       dockerfile: curator/Dockerfile
@@ -19,7 +51,7 @@ services:
       - "4001:4001"
       - "4001:4001/udp"
       - "8081:8081"
-      - "127.0.0.1:8080:8080"
+      - "8080:8080"
       - "127.0.0.1:5001:5001"
     build:
       context: .
