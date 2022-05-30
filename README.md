@@ -10,7 +10,7 @@ This repository is for the dbranch-node. It contains a docker file for [dbranch-
 ### dBranch ecosystem
 Currently the dBranch software ecosystem consists of two user facing software apps and a node that contains all of the backend processes.
 
-![dbranch software stack](/backend/doc/dbranch_node.jpg)
+![dbranch software stack](/doc/dbranch_node.jpg)
 
 
 ##### dbranch user software
@@ -36,7 +36,7 @@ The [dbranch-backend](https://github.com/b-rad-c/dbranch-backend) repository is 
 
 ### Software Guide
 
-![publishing via dbranch node](/backend/doc/dbranch_node_publishing.jpg)
+![publishing via dbranch node](/doc/dbranch_node_publishing.jpg)
 
 ##### steps to publish an article into the dbranch protocol
 1. Using **dbranch-desktop** an author drafts an article and publishes it into IPFS
@@ -44,14 +44,14 @@ The [dbranch-backend](https://github.com/b-rad-c/dbranch-backend) repository is 
 3. The CLI connects to the *cardano-wallet* server which submits the transaction
 4. The **cardano-node** receives the transaction request from the previous step and submits to the cardano mem pool for processing.
 
-![dbranch node curator flow](/backend/doc/dbranch_node_curator.jpg)
+![dbranch node curator flow](/doc/dbranch_node_curator.jpg)
 
 1. The **dbranch-curator** runs continuously as a daemon and talks to the **postgres** instance to discover new articles published by configured cardano addresses.
 2. The postgres instance is updated in the background by the official **cardano-db-sync** docker image
 3. **cardano-db-sync** pulls its data from **cardano-node**
 4. When new articles arrive they are published via **ipfs**
 
-![dbranch user flows](/backend/doc/dbranch_node_user.jpg)
+![dbranch user flows](/doc/dbranch_node_user.jpg)
 1. Users navigate to the **dbrach-website**, currently this only hosts content by the dbranch creators, will eventually be reusable so creators can host and/or curate their own content.
 2. A future build will allow users to browse curators on the dbranch network using the **dbranch-desktop** application.
 3. The **dbranch-api-server** gets its content from **ipfs**.
