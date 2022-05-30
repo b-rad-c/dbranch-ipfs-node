@@ -32,7 +32,12 @@ RUN ipfs bootstrap add /ip4/138.68.200.23/udp/4001/quic/p2p/12D3KooWEhBfgczYeJbK
 
 RUN ipfs files mkdir --parents /dBranch/curated
 
-COPY ./backend/samples/dbranch_intro.news /dbranch/
+COPY ./backend/samples/*.news /dbranch/
+
+# seed articles for testing
+# Qmedf7atXVKa4Sj2TQ31a7qqRpxLgyxmcbUg7hPfgJnwqo
 RUN ipfs add /dbranch/dbranch_intro.news
+# QmdF8DpVSH4uMFJxhkmFWjcFhhW4NMDykNTrNRy82pQHf1
+RUN ipfs add /dbranch/dbranch_technology.news
 
 CMD ipfs daemon --enable-pubsub-experiment
