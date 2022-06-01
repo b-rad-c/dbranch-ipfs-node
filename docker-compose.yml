@@ -52,6 +52,7 @@ services:
       - "4001:4001/udp"
       - "8081:8081"
       - "8080:8080"
+      - "127.0.0.1:5001:5001"
     build:
       context: .
       dockerfile: ipfs/Dockerfile
